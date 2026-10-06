@@ -80,15 +80,25 @@ namespace MiRoti.Data
             };
             context.Cadetes.Add(cadete);
 
+            // 🥕 Usuario responsable de precios de ingredientes
+            var insumos = new Usuario
+            {
+                Nombre = "Administrador de Insumos",
+                Email = "insumos@miroti.com",
+                Contrasenia = BCrypt.Net.BCrypt.HashPassword("insumos123"),
+                Rol = "Administrador de Insumos"
+            };
+            context.Usuarios.Add(insumos);
+
             context.SaveChanges();
 
             // 🔹 Ingredientes base (vinculados a unidades)
             var ingredientes = new[]
             {
-                new Ingrediente { Nombre = "Papa", CostoUnitario = 150, UnidadMedidaId = unidades[1].Id },
-                new Ingrediente { Nombre = "Pollo", CostoUnitario = 1200, UnidadMedidaId = unidades[0].Id },
-                new Ingrediente { Nombre = "Aceite", CostoUnitario = 900, UnidadMedidaId = unidades[3].Id },
-                new Ingrediente { Nombre = "Huevo", CostoUnitario = 80, UnidadMedidaId = unidades[2].Id }
+                new Ingrediente { Nombre = "Papa", CostoUnitario = 150, UnidadMedidaId = unidades[1].Id, StockActual = 10000 }, // 10 kg in grams
+                new Ingrediente { Nombre = "Pollo", CostoUnitario = 1200, UnidadMedidaId = unidades[0].Id, StockActual = 5 },   // 5 kg
+                new Ingrediente { Nombre = "Aceite", CostoUnitario = 900, UnidadMedidaId = unidades[3].Id, StockActual = 2 },   // 2 L
+                new Ingrediente { Nombre = "Huevo", CostoUnitario = 80, UnidadMedidaId = unidades[2].Id, StockActual = 30 }    // 30 unidades
             };
             context.Ingredientes.AddRange(ingredientes);
 

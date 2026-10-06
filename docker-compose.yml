@@ -1,0 +1,21 @@
+# Base de datos local para desarrollo (miroti)
+# Uso:  docker compose up -d   |   docker compose down   |   docker compose down -v (borra datos)
+services:
+  db:
+    image: mariadb:10.4
+    container_name: miroti-db
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1   # root sin password, igual que appsettings.Development.json
+      MARIADB_DATABASE: db_miroti
+    ports:
+      - "3306:3306"
+    volumes:
+      - miroti-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  miroti-db-data:

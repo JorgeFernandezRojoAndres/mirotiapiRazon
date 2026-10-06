@@ -6,10 +6,10 @@ namespace MiRoti.Models
     public class PlatoIngrediente
     {
         public int PlatoId { get; set; }
-        public Plato Plato { get; set; } = new Plato();
+        public Plato Plato { get; set; } = null!;
 
         public int IngredienteId { get; set; }
-        public Ingrediente Ingrediente { get; set; } = new Ingrediente();
+        public Ingrediente Ingrediente { get; set; } = null!;
 
         public double Cantidad { get; set; }
 

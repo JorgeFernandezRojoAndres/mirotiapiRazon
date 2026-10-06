@@ -27,6 +27,9 @@ namespace MiRoti.Models
         [ForeignKey(nameof(UnidadMedidaId))]
         public UnidadMedida? UnidadMedida { get; set; }
 
+        // 📦 Stock disponible
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal StockActual { get; set; } = 0;
 
         // 🔗 Relación muchos a muchos con Plato
         public ICollection<PlatoIngrediente>? PlatoIngredientes { get; set; }
