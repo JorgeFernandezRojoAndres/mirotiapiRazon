@@ -1,16 +1,13 @@
-# Base de datos local para desarrollo (miroti)
-# Uso:  docker compose up -d   |   docker compose down   |   docker compose down -v (borra datos)
 services:
   db:
     image: postgres:13
     container_name: miroti-db
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: ""
+      POSTGRES_PASSWORD: "root"
       POSTGRES_DB: db_miroti
-      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - miroti-db-data:/var/lib/postgresql/data
     healthcheck:
