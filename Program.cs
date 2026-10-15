@@ -24,23 +24,14 @@ namespace MiRoti
             var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
             builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
-            if (builder.Environment.IsDevelopment())
-            {
-                builder.Services.AddDbContext<MiRotiContext>(options =>
-                    options.UseMySql(
-                        builder.Configuration.GetConnectionString("DefaultConnection"),
-                        new MySqlServerVersion(new Version(10, 4, 32))
-                    )
-                );
-            }
-            else
-            {
-                builder.Services.AddDbContext<MiRotiContext>(options =>
-                    options.UseNpgsql(
-                        builder.Configuration.GetConnectionString("DefaultConnection")
-                    )
-                );
-            }
+            // ----------------------------
+            // 🔹 Configuración de Base de Datos (PostgreSQL unificado)
+            // ----------------------------
+            builder.Services.AddDbContext<MiRotiContext>(options =>
+                options.UseNpgsql(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                )
+            );
 
             // ----------------------------
             // 🔹 MVC y Razor
