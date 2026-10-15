@@ -2,17 +2,19 @@
 # Uso:  docker compose up -d   |   docker compose down   |   docker compose down -v (borra datos)
 services:
   db:
-    image: mariadb:10.4
+    image: postgres:13
     container_name: miroti-db
     environment:
-      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1   # root sin password, igual que appsettings.Development.json
-      MARIADB_DATABASE: db_miroti
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ""
+      POSTGRES_DB: db_miroti
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - miroti-db-data:/var/lib/mysql
+      - miroti-db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "pg_isready", "-U", "root"]
       interval: 5s
       timeout: 5s
       retries: 10
